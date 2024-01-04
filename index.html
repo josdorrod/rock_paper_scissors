@@ -26,10 +26,12 @@
                        playerSelection.toLowerCase() === 'scissors' && computerSelection.toLowerCase() === 'paper' ||
                        playerSelection.toLowerCase() === 'rock' && computerSelection.toLowerCase() === 'scissors'){
                         result = `You win. ${playerSelection} beats ${computerSelection}`;
+                        console.log(result);
                         return result;
                     }
                      else {   //Ordenador gana
                         result = `You lose. ${computerSelection} beats ${playerSelection}`;
+                        console.log(result);
                         return result;
                     }
                 }
@@ -38,14 +40,35 @@
             //Funcion game para el mejor de 5 juegos
             function game(){
                 //code here
+                let computerVictory = 0;
+                let playerVictory = 0;
+                const numberOfGames = 5;
+                const victoryToWin = Math.ceil(numberOfGames/2);
+
+                while(computerVictory != victoryToWin && playerVictory != victoryToWin){
+
+                    let resultRound = '';
+
+                    const playerSelection = prompt("Introduzca tu elección:");
+                    console.log(`Elección del jugadaor: ${playerSelection}`);
+
+                    const computerSelection = getComputerChoice();
+                    console.log(`Elección del ordenador: ${computerSelection}`);
+
+
+                    resultRound = playRound(playerSelection, computerSelection);
+                    if(resultRound.includes('tie')){
+                    } else{
+                        if(resultRound.includes('lose')) computerVictory++;
+                        else playerVictory++;
+                    }
+                    
+                }
+                if(playerVictory === victoryToWin) return `You win ${playerVictory} a ${computerVictory}`;
+                else return `You lose ${computerVictory} a ${playerVictory}`;
             }
 
-            const computerSelection = getComputerChoice();
-            const myElection = 'Paper';
-            playRound(myElection, computerSelection);
-            console.log(`Elección del ordenador: ${computerSelection}`);
-            console.log(`Elección del jugador: ${myElection}`);
-            console.log(playRound(myElection, computerSelection));
+            console.log(game());
             
         </script>
     </body>
