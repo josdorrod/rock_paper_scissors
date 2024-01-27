@@ -15,7 +15,6 @@ function playRound(playerSelection, computerSelection){
 
     let result = '';
 
-
     if(playerSelection.toLowerCase() === computerSelection.toLowerCase()){
 
         //Empate
@@ -47,63 +46,55 @@ function playRound(playerSelection, computerSelection){
         }
     }
     if(playerScore === 0) announceWinner("Sorry, you LOSE the game!");
-    if(computer === 0) announceWinner("Congratulations, you WIN!")
+    if(computerScore === 0) announceWinner("Congratulations, you WIN!")
+
+    //Dar color al marcador
+    if(playerScore === computerScore){
+        player.style.color = "black";
+        computer.style.color = "black";
+    } else if(playerScore < computerScore){
+        player.style.color = "red";
+        computer.style.color = "green";
+
+    } else {
+        player.style.color = "green";
+        computer.style.color = "red";
+    }
 
     return result;
 }
 
-//Funcion game para el mejor de 5 juegos
-/* function game(){
-    //code here
-    let computerVictory = 0;
-    let playerVictory = 0;
-    const numberOfGames = 5;
-    const victoryToWin = Math.ceil(numberOfGames/2);
-
-    while(computerVictory != victoryToWin && playerVictory != victoryToWin){
-
-        let resultRound = '';
-
-        const playerSelection = prompt("Introduzca tu elección:");
-        console.log(`Elección del jugadaor: ${playerSelection}`);
-
-        const computerSelection = getComputerChoice();
-        console.log(`Elección del ordenador: ${computerSelection}`);
-
-
-        resultRound = playRound(playerSelection, computerSelection);
-        if(resultRound.includes('tie')){
-        } else{
-            if(resultRound.includes('lose')) computerVictory++;
-            else playerVictory++;
-        }
-        
-    }
-    if(playerVictory === victoryToWin) return `You win ${playerVictory} a ${computerVictory}`;
-    else return `You lose ${computerVictory} a ${playerVictory}`;
-}
-
-console.log(game()); */
-
 let body = document.querySelector("body");
 const player = document.querySelector("#player-score");
 const computer = document.querySelector("#computer-score");
-const div = document.querySelector("#parcial-result");
+const parcialResult = document.querySelector("#parcial-result");
+const finalResult = document.querySelector("#final-result");
+const reactivate = document.querySelector(".try-again");
 
 body.addEventListener("click", playGame);
 
 
 function playGame(e){
-    if(e.target.nodeName == 'BUTTON'){
+    if(e.target.nodeName == 'BUTTON' && e.target.className != "try-again"){
         const playerSelection = e.target.id;
         const computerSelection =  getComputerChoice();
-        div.textContent = playRound(playerSelection, computerSelection);
+        parcialResult.textContent = playRound(playerSelection, computerSelection);
     }
     
 }
 
 function announceWinner(text){
-    const finalResult = document.querySelector("#final-result");
     finalResult.textContent = text;
     body.removeEventListener("click", playGame);
 }
+
+reactivate.addEventListener("click", () =>{
+    body.addEventListener("click", playGame);
+    parcialResult.textContent = "";
+    finalResult.textContent = "";
+    computer.textContent = "5";
+    player.textContent = "5";
+    player.style.color = "black";
+    computer.style.color = "black";
+
+});

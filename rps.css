@@ -1,0 +1,64 @@
+body{
+    display: flex;
+    justify-content: center;
+    height: 98vh;
+}
+
+main{
+    display: flex;
+    align-items: center;
+    width: 75%;
+    flex-direction: column;
+    margin-top: 50px;
+}
+
+.botonera button{
+    height: 400px;
+    width: 250px;
+    font-size: 200px;
+    margin: 10px;
+}
+
+.info{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 75%;
+}
+
+.scoreboard{
+    display:flex;
+    justify-content: space-evenly;
+    font-size: 2.5em;
+    width: 100%;
+}
+
+.score{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    margin: 15px 0;
+}
+
+#parcial-result{
+    font-size: 2em;
+    color: gray;
+}
+
+#final-result{
+    font-size: 2em;
+    font-weight: bold;
+}
+
+span{
+    border: 3px solid black;
+    border-radius: 20%;
+    padding: 5px;
+}
+
+.try-again{
+    height: 30px;
+    font-size: 20px;
+    margin-top: 20px;
+}
