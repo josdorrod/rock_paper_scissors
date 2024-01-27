@@ -7,29 +7,53 @@ function getComputerChoice(){
 
 //Funcion con dos parametros (Player y computer selection) que devuelve quien de los dos gana
 function playRound(playerSelection, computerSelection){
+
+    //Marcadores jugador y ordenador
+    
+    let playerScore = parseInt(player.textContent);
+    let computerScore = parseInt(computer.textContent);
+
     let result = '';
+
+
     if(playerSelection.toLowerCase() === computerSelection.toLowerCase()){
-        return 'It is a tie';   //Empate
+
+        //Empate
+        result = `It is a tie. ${playerSelection} = ${computerSelection}`;
+        console.log(result);
+ 
 
     } else {
 
-        if(playerSelection.toLowerCase() === 'paper' && computerSelection.toLowerCase() === 'rock' ||      // Jugador gana
+        // Jugador gana
+        if(playerSelection.toLowerCase() === 'paper' && computerSelection.toLowerCase() === 'rock' ||      
            playerSelection.toLowerCase() === 'scissors' && computerSelection.toLowerCase() === 'paper' ||
            playerSelection.toLowerCase() === 'rock' && computerSelection.toLowerCase() === 'scissors'){
+
+            computerScore-=1;
+            computer.textContent = computerScore.toString();
+
             result = `You win. ${playerSelection} beats ${computerSelection}`;
-            console.log(result);
-            return result;
         }
-         else {   //Ordenador gana
+
+        //Jugador pierde
+         else {   
+
+            
+            playerScore-=1;
+            player.textContent = playerScore.toString();
+            
             result = `You lose. ${computerSelection} beats ${playerSelection}`;
-            console.log(result);
-            return result;
         }
     }
+    if(playerScore === 0) announceWinner("Sorry, you LOSE the game!");
+    if(computer === 0) announceWinner("Congratulations, you WIN!")
+
+    return result;
 }
 
 //Funcion game para el mejor de 5 juegos
-function game(){
+/* function game(){
     //code here
     let computerVictory = 0;
     let playerVictory = 0;
@@ -59,4 +83,27 @@ function game(){
     else return `You lose ${computerVictory} a ${playerVictory}`;
 }
 
-console.log(game());
+console.log(game()); */
+
+let body = document.querySelector("body");
+const player = document.querySelector("#player-score");
+const computer = document.querySelector("#computer-score");
+const div = document.querySelector("#parcial-result");
+
+body.addEventListener("click", playGame);
+
+
+function playGame(e){
+    if(e.target.nodeName == 'BUTTON'){
+        const playerSelection = e.target.id;
+        const computerSelection =  getComputerChoice();
+        div.textContent = playRound(playerSelection, computerSelection);
+    }
+    
+}
+
+function announceWinner(text){
+    const finalResult = document.querySelector("#final-result");
+    finalResult.textContent = text;
+    body.removeEventListener("click", playGame);
+}

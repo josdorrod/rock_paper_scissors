@@ -8,8 +8,20 @@
         <link rel="stylesheet" href="./rps.css">
     </head>
     <body>
-        <button>&#9995;</button>
-        <button>&#128400;</button>
-        <button>&#9996;</button>
+        <button id="rock">&#9995;</button>
+        <button id="paper">&#128400;</button>
+        <button id="scissors">&#9996;</button>
+
+        <div id="info">
+            <div id="parcial-result"></div>
+            <div id="scoreboard">
+                <p>Player points: <span id="player-score">5</span></p>
+                <p>Computer points: <span id="computer-score">5</span></p>
+            </div>
+            <div id="final-result"></div>
+        </div>
+
+        <button id="try-again">Try Again</button>
+        
     </body>
 </html>
